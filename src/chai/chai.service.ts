@@ -15,6 +15,12 @@ export class ChaiService {
       brand: 'Red Label',
       flavors: ['chocolate', 'vanila'],
     },
+    {
+      id: 2,
+      name: 'red Tea',
+      brand: 'Red Label',
+      flavors: ['chocolate', 'vanila'],
+    },
   ];
   findAll() {
     return this.chai;
@@ -28,11 +34,12 @@ export class ChaiService {
   }
   create(createChaiDto: any) {
     this.chai.push(createChaiDto);
+    return createChaiDto;
   }
   update(id: string, updateChaiDto: any) {
     const existingChai = this.findOne(id);
     if (existingChai) {
-      //update the existing entity
+      return 'working';
     }
   }
   remove(id: string) {

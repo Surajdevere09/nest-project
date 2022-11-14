@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { ChaiService } from './chai.service';
 import { CreateChaiDto } from './dto/create-chai.dto/create-chai.dto';
+import { UpdateChaiDto } from './dto/update-chai.dto/update-chai.dto';
 
 @Controller('chai')
 export class ChaiController {
@@ -21,18 +22,20 @@ export class ChaiController {
     return this.chaiService.findAll();
   }
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.chaiService.findOne(id);
+  findOne(@Param('id') id: number) {
+    return this.chaiService.findOne('' + id);
   }
   @Post()
   //type safety by DTO
-  create(@Body() CreateChaiDto: CreateChaiDto) {
-    return this.chaiService.create(CreateChaiDto);
+  create(@Body() createChaiDto: CreateChaiDto) {
+    console.log(createChaiDto instanceof CreateChaiDto);
+    return this.chaiService.create(createChaiDto);
   }
-  @Patch()
-  update(@Param('id') id: string, @Body() body) {
-    return this.chaiService.update(id, body);
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateChaiDto: UpdateChaiDto) {
+    return this.chaiService.update(id, updateChaiDto);
   }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.chaiService.remove(id);
