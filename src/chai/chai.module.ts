@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+
 import { ChaiController } from './chai.controller';
 import { ChaiService } from './chai.service';
-import { chai } from './entities/chai.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([chai])],
+  imports: [],
   controllers: [ChaiController],
   providers: [ChaiService],
 })
