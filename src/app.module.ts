@@ -7,6 +7,8 @@ import { PostsModule } from './posts/posts.module';
 import { DatabaseModule } from './core/database/database.module';
 import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
+import { MulterModule } from '@nestjs/platform-express';
+import { GatewayModule } from './gateway/gateway.module';
 
 @Module({
   imports: [
@@ -15,6 +17,8 @@ import { UsersModule } from './users/users.module';
     PostsModule,
     DatabaseModule,
     UsersModule,
+    MulterModule.register({ dest: './uploads' }),
+    GatewayModule,
   ],
   controllers: [AppController, CoffeesController],
   providers: [AppService],
