@@ -2,21 +2,21 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CoffeesController } from './coffees/coffees.controller';
-import { ChaiModule } from './chai/chai.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { SequelizeModule } from '@nestjs/sequelize';
+import { LibraryModule } from './library/library.module';
 @Module({
   imports: [
-    ChaiModule,
-    TypeOrmModule.forRoot({
-      type: 'postgres',
+    SequelizeModule.forRoot({
+      dialect: 'postgres',
       host: 'localhost',
       port: 5432,
       username: 'postgres',
       password: 'password',
-      database: 'postgres',
-      autoLoadEntities: true,
+      database: 'nest',
+      autoLoadModels: true,
       synchronize: true,
     }),
+    LibraryModule,
   ],
   controllers: [AppController, CoffeesController],
   providers: [AppService],
