@@ -10,13 +10,13 @@ export class PostsController {
     return 'this action  returns all posts';
   }
   @Get(':id')
-  findOne(@Param('id') id: number): string {
+  findOne(@Param('id') id: string): string {
     return 'This action returns one post';
   }
 
   @Post()
   //type safety by DTO
   create(@Body() body: Posts) {
-    return this.postsService.create(body);
+    return 'working';
   }
 }
