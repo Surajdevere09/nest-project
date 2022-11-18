@@ -31,6 +31,7 @@ export class UsersController {
   @Post()
   //type safety by DTO
   create(@Body() body: Users) {
+    //Users is entity
     return this.usersService.create(body);
   }
   // @Patch(':id')

@@ -5,9 +5,14 @@ import {
   Res,
   StreamableFile,
   UploadedFile,
+  UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
+import {
+  AnyFilesInterceptor,
+  FileFieldsInterceptor,
+  FileInterceptor,
+} from '@nestjs/platform-express';
 import { extname, join } from 'path';
 import { AppService } from './app.service';
 import multer = require('multer');
@@ -51,5 +56,27 @@ export class AppController {
   handleUpload(@UploadedFile() file: Express.Multer.File) {
     console.log('file:', file);
     return 'File upload API';
+  }
+
+  @Post('upload')
+  @UseInterceptors(
+    FileFieldsInterceptor([
+      { name: 'avatar', maxCount: 1 },
+      { name: 'background', maxCount: 1 },
+    ]),
+  )
+  uploadFile(
+    @UploadedFiles()
+    files: {
+      avatar?: Express.Multer.File[];
+      background?: Express.Multer.File[];
+    },
+  ) {
+    console.log(files);
+  }
+  @Post('anyfile')
+  @UseInterceptors(AnyFilesInterceptor())
+  uploadFile2(@UploadedFiles() files: Array<Express.Multer.File>) {
+    console.log(files);
   }
 }
